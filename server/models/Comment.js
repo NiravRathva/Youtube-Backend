@@ -14,6 +14,6 @@ const CommentSchema=new mongoose.Schema(
             type:String,
             required:true
         },
-    },{timestamps}
+    },{timestamps:true}
 )
 export default mongoose.model("Comment",CommentSchema);

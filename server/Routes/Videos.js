@@ -16,7 +16,7 @@ router.get("/find/:id", getVideo)
 //add views count 
 router.put("/view/:id", addView)
 //trending videos 
-router.get("/trend", trenddingVideo)
+router.get("/trending", trenddingVideo)
 //random video
 router.get("/random", randomVideo)
 //subcribed channel video 

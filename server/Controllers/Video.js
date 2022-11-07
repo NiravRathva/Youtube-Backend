@@ -1,6 +1,6 @@
 import Video from "../models/Video.js"
 import { createError } from "../errorHandler.js"
-
+import User from "../models/User.js";
 //add video
 export const addVideo = async (req, res, next) => {
     try {
@@ -86,24 +86,44 @@ export const randomVideo = async (req, res, next) => {
 
     }
 }
+
+
+//to do not working perfectly
 export const subChannelVideo = async (req, res, next) => {
     try {
-
-    } catch (error) {
-
+      const user = await User.findById(req.user.id);
+      const subscribedChannels = user.subscribeduser;
+  
+      const list = await Promise.all(
+        subscribedChannels.map(async (channelId) => {
+          return await Video.find({ userId: channelId });
+        })
+      );
+  
+      res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
+    } catch (err) {
+      next(err);
     }
-}
-export const getByTag = async (req, res, next) => {
+  };
+  export const getByTag = async (req, res, next) => {
+    const tag = req.query.tags.split(",");
+    
     try {
-
-    } catch (error) {
-
+      const videos = await Video.find({ tag: { $in: tag } }).limit(20);
+      res.status(200).json(videos);
+    } catch (err) {
+      next(err);
     }
-}
-export const searchVideo = async (req, res, next) => {
+  };
+  
+  export const searchVideo = async (req, res, next) => {
+    const query = req.query.q;
     try {
-
-    } catch (error) {
-
+      const videos = await Video.find({
+        title: { $regex: query, $options: "i" },
+      }).limit(40);
+      res.status(200).json(videos);
+    } catch (err) {
+      next(err);
     }
-}
+  };
