@@ -79,9 +79,9 @@ export const unsubscribe = async (req, res, next) => {
 }
 
 //like a video
-export const like = async (req, res, next) => {
+export const likes = async (req, res, next) => {
   const id = req.user.id;
-  const videoId = req.params.videoId;
+  const videoId = req.params.VideoId;
   try {
     await Video.findByIdAndUpdate(videoId,{
       $addToSet:{likes:id},
@@ -93,9 +93,9 @@ export const like = async (req, res, next) => {
   }
 };
 //dislike video
-export const dislike = async (req, res, next) => {
+export const dislikes = async (req, res, next) => {
     const id = req.user.id;
-    const videoId = req.params.videoId;
+    const videoId = req.params.VideoId;
     try {
       await Video.findByIdAndUpdate(videoId,{
         $addToSet:{dislikes:id},
