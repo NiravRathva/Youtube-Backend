@@ -9,7 +9,7 @@ export const addVideo = async (req, res, next) => {
 
         res.status(200).json(saveVideo)
     } catch (error) {
-        next(err)
+       
     }
 }
 //update video
@@ -88,7 +88,7 @@ export const randomVideo = async (req, res, next) => {
 }
 
 
-//to do not working perfectly
+
 export const subChannelVideo = async (req, res, next) => {
     try {
       const user = await User.findById(req.user.id);
