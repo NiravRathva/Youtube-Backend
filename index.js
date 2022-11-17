@@ -6,7 +6,7 @@ import VideoRoutes from "./Routes/Videos.js"
 import CommentRoutes from "./Routes/Comments.js"
 import AuthRoutes from "./Routes/auth.js"
 import cookieParser from "cookie-parser";
-
+import cors from "cors"
 const app = express();
 const port = 8000
 
@@ -20,6 +20,8 @@ const connectToMongo = () => {
       throw err;
     });
 };
+
+app.use(cors())
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", AuthRoutes);
